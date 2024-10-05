@@ -30,7 +30,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 from tqdm import tqdm
-from pprint import pprint
+# from pprint import pprint
 import io
 
 settings = get_settings()
@@ -59,7 +59,7 @@ class AnomalyDetectionDataset:
         """
 
         self.data = data
-        self.series="198_UCR_Anomaly_tiltAPB2_50000_124159_124985"
+        self.series = "198_UCR_Anomaly_tiltAPB2_50000_124159_124985"
         self.data_split = data_split
         self.data_stride_len = data_stride_len
         self.random_seed = random_seed
@@ -136,6 +136,7 @@ class AnomalyDetectionDataset:
     def __len__(self):
         return (self.length_timeseries // self.data_stride_len) + 1
 
+
 class MyService(Service):
     """
     This service takes as input a time series.
@@ -178,7 +179,6 @@ class MyService(Service):
             # docs_url="https://docs.swiss-ai-center.ch/reference/core-concepts/service/ts-anomaly-detection/",
         )
         self._logger = get_logger(settings)
-
 
     # TODO: 5. CHANGE THE PROCESS METHOD (CORE OF THE SERVICE)
     def process(self, data):
@@ -223,18 +223,19 @@ class MyService(Service):
         preds = np.concatenate(preds, axis=0).flatten()
         labels = np.concatenate(labels, axis=0).flatten()
 
-        # The last and the second to last windows have overlapping timesteps. We will remove these overlapping predictions
+        # The last and the second to last windows have overlapping timesteps
+        # We will remove these overlapping predictions
         n_unique_timesteps = 512 - trues.shape[0] + test_dataset.length_timeseries
         trues = np.concatenate([trues[:512 * (test_dataset.length_timeseries // 512)], trues[-n_unique_timesteps:]])
         preds = np.concatenate([preds[:512 * (test_dataset.length_timeseries // 512)], preds[-n_unique_timesteps:]])
         labels = np.concatenate([labels[:512 * (test_dataset.length_timeseries // 512)], labels[-n_unique_timesteps:]])
         assert trues.shape[0] == test_dataset.length_timeseries
 
-        # We will use the Mean Squared Error (MSE) between the observed values and MOMENT's predictions as the anomaly score
+        # We will use the Mean Squared Error (MSE) between the observed values and
+        # MOMENT's predictions as the anomaly score
         anomaly_scores = (trues - preds) ** 2
 
-        result = f"Zero-shot Adjusted Best F1 Score: {adjbestf1(y_true=labels, y_scores=anomaly_scores)}"
-        #print(result)
+        # result = f"Zero-shot Adjusted Best F1 Score: {adjbestf1(y_true=labels, y_scores=anomaly_scores)}"
 
         anomaly_start = 74158
         anomaly_end = 74984
@@ -310,7 +311,7 @@ async def lifespan(app: FastAPI):
 
 
 # TODO: 6. CHANGE THE API DESCRIPTION AND SUMMARY
-api_description = """This service takes as input a time series (.csv file) and returns the anomaly score 
+api_description = """This service takes as input a time series (.csv file) and returns the anomaly score
 (adjusted best F1) in a zero-shot fashion.
 """
 api_summary = """This service detects anomalies in univariate time series using the MOMENT library.
