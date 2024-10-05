@@ -20,7 +20,7 @@ from contextlib import asynccontextmanager
 
 # Imports required by the service's model
 from momentfm import MOMENTPipeline
-from momentfm.utils.anomaly_detection_metrics import adjbestf1
+# from momentfm.utils.anomaly_detection_metrics import adjbestf1
 
 import torch
 from torch.utils.data import DataLoader
