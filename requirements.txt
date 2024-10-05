@@ -1,0 +1,10 @@
+common-code[test] @ git+https://github.com/swiss-ai-center/common-code.git@main
+
+momentfm @ git+https://github.com/moment-timeseries-foundation-model/moment.git@aad59148bf4b9f43d144c2aed72324cfed45dffe
+numpy==1.25.2
+pandas==2.2.2
+scikit-learn==1.5.1
+matplotlib==3.9.1
+tqdm==4.66.4
+torch==2.2.1
+torchvision==0.17.1

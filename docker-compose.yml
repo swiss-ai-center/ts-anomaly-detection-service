@@ -1,0 +1,32 @@
+services:
+  service:
+    build:
+      context: .
+      dockerfile: development.Dockerfile
+    command: |
+      bash -c "
+        if [ -d .venv ]; 
+        then 
+          echo '.venv exists and is not empty'; 
+        else 
+          echo '.venv does not exist or is empty'; 
+          python3.11 -m venv .venv;
+        fi &&
+        # Activate the virtual environment
+        source .venv/bin/activate &&
+        # Install the dependencies
+        pip install -r requirements.txt -r requirements-all.txt &&
+        # Run the service
+        cd src &&
+        uvicorn --reload --host 0.0.0.0 --port 9090 main:app
+      "
+    environment:
+      - ENGINE_URLS=["http://host.docker.internal:8080"]
+      - SERVICE_URL=http://host.docker.internal:${SERVICE_PORT}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - ${SERVICE_PORT}:9090
+    working_dir: /workspaces/service
+    volumes:
+      - .:/workspaces/service
