@@ -148,8 +148,8 @@ class MyService(Service):
 
     def __init__(self):
         super().__init__(
-            name="anomaly detection MOMENT",
-            slug="anomaly-detection-MOMENT",
+            name="TS Anomaly Detection",
+            slug="ts-anomaly-detection",
             url=settings.service_url,
             summary=api_summary,
             description=api_description,
@@ -175,7 +175,7 @@ class MyService(Service):
             ],
             has_ai=True,
             # OPTIONAL: CHANGE THE DOCS URL TO YOUR SERVICE'S DOCS
-            docs_url="https://docs.swiss-ai-center.ch/reference/core-concepts/service/anomaly-detection-moment/",
+            # docs_url="https://docs.swiss-ai-center.ch/reference/core-concepts/service/ts-anomaly-detection/",
         )
         self._logger = get_logger(settings)
 
@@ -321,7 +321,7 @@ api_summary = """This service detects anomalies in univariate time series using 
 # TODO: 7. CHANGE THE API TITLE, VERSION, CONTACT AND LICENSE
 app = FastAPI(
     lifespan=lifespan,
-    title="Anomaly Detection with foundation model MOMENT",
+    title="ts anomaly detection API.",
     description=api_description,
     version="0.0.1",
     contact={

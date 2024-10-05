@@ -1,5 +1,5 @@
 [project]
-name = "anomaly detection MOMENT"
+name = "ts-anomaly-detection-service"
 
 [tool.pytest.ini_options]
 pythonpath = [".", "src"]
