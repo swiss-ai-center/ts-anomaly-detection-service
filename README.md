@@ -4,6 +4,9 @@ This service takes as input a time series and returns the anomaly
 score (adjusted best F1) in a zero-shot fashion. It uses [MOMENT](https://github.com/moment-timeseries-foundation-model/moment/tree/main)
 
 
+_Check the [related documentation](https://docs.swiss-ai-center.ch/reference/services/ts-anomaly-detection/) for more information._
+
+
 ## License for the Moment library
 
 MIT License
