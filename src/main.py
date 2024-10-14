@@ -180,7 +180,6 @@ class MyService(Service):
         )
         self._logger = get_logger(settings)
 
-    # TODO: 5. CHANGE THE PROCESS METHOD (CORE OF THE SERVICE)
     def process(self, data):
         # NOTE that the data is a dictionary with the keys being the field names set in the data_in_fields
         # The objects in the data variable are always bytes. It is necessary to convert them to the desired type
@@ -310,7 +309,6 @@ async def lifespan(app: FastAPI):
         await service_service.graceful_shutdown(my_service, engine_url)
 
 
-# TODO: 6. CHANGE THE API DESCRIPTION AND SUMMARY
 api_description = """This service takes as input a time series (.csv file) and returns the anomaly score
 (adjusted best F1) in a zero-shot fashion.
 """
@@ -319,7 +317,6 @@ api_summary = """This service detects anomalies in univariate time series using 
 """
 
 # Define the FastAPI application with information
-# TODO: 7. CHANGE THE API TITLE, VERSION, CONTACT AND LICENSE
 app = FastAPI(
     lifespan=lifespan,
     title="ts anomaly detection API.",
