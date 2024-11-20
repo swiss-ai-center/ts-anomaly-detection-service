@@ -149,7 +149,7 @@ class MyService(Service):
 
     def __init__(self):
         super().__init__(
-            name="TS Anomaly Detection",
+            name="Time Series Anomaly Detection",
             slug="ts-anomaly-detection",
             url=settings.service_url,
             summary=api_summary,
@@ -318,7 +318,7 @@ api_summary = """This service detects anomalies in univariate time series using 
 # Define the FastAPI application with information
 app = FastAPI(
     lifespan=lifespan,
-    title="ts anomaly detection API.",
+    title="Time Series Anomaly Detection API.",
     description=api_description,
     version="0.0.1",
     contact={
